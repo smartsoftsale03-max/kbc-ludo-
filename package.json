@@ -1,5 +1,5 @@
 {
-  "name": "KBC LUDO Demo",
+  "name": "kbc-ludo",
   "version": "1.0.0",
   "scripts": {
     "start": "node server.js"
