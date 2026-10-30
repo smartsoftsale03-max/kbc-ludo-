@@ -1,0 +1,5 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KBC LUDO</title><link rel="stylesheet" href="style.css"></head><body>
+<header><b>🎮 KBC LUDO</b><a href="/admin">Admin</a></header>
+<main><section id="lobby" class="card"><h1>Play Online Ludo</h1><input id="name" placeholder="Your name"><button onclick="create()">Create Room</button><div class="join"><input id="code" placeholder="Room Code"><button onclick="join()">Join Room</button></div><p id="msg"></p></section>
+<section id="game" class="hidden"><div class="card top"><div>Room: <b id="room"></b></div><div id="players"></div><button onclick="start()">Start Game</button><button onclick="roll()">🎲 Roll Dice</button><b id="dice"></b></div><div class="board"><div class="home red">RED</div><div class="home green">GREEN</div><div class="track" id="track"></div><div class="home yellow">YELLOW</div><div class="home blue">BLUE</div></div><p id="turn"></p></section></main>
+<script src="/socket.io/socket.io.js"></script><script src="app.js"></script></body></html>

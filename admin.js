@@ -1,0 +1,9 @@
+const $=x=>document.getElementById(x);async function api(u,o={}){let r=await fetch(u,{headers:{'Content-Type':'application/json'},...o});let d=await r.json();if(!r.ok)throw d;return d}
+async function login(){try{await api('/api/admin/login',{method:'POST',body:JSON.stringify({email:$('email').value,password:$('pass').value})});show()}catch(e){$('err').textContent=e.message||'Login failed'}}
+async function show(){ $('login').classList.add('hidden');$('dash').classList.remove('hidden');refresh();setInterval(refresh,2000)}
+async function refresh(){try{let st=await api('/api/admin/stats'),rs=await api('/api/admin/rooms');$('rooms').textContent=st.rooms;$('players').textContent=st.players;$('playing').textContent=st.playing;$('list').innerHTML=rs.map(r=>`<div class="room"><b>${r.code}</b> — ${r.status}<br>${r.players.map(p=>`${p.name} (${p.color}) ${p.connected?'🟢':'🔴'} <button onclick="kick('${r.code}','${p.id}')">Kick</button>`).join(' ')}<br><button onclick="resetRoom('${r.code}')">Reset</button><button onclick="closeRoom('${r.code}')">Close</button></div>`).join('')||'No rooms'}catch(e){}}
+async function kick(room,playerId){await api('/api/admin/kick',{method:'POST',body:JSON.stringify({room,playerId})});refresh()}
+async function resetRoom(room){await api('/api/admin/reset-room',{method:'POST',body:JSON.stringify({room})});refresh()}
+async function closeRoom(room){await api('/api/admin/close-room',{method:'POST',body:JSON.stringify({room})});refresh()}
+async function logout(){await api('/api/admin/logout',{method:'POST'});location.reload()}
+api('/api/admin/me').then(show).catch(()=>{})
