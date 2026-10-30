@@ -16,7 +16,7 @@ const safe=[0,8,13,21,26,34,39,47];
 function roomCode(){return crypto.randomBytes(3).toString('hex').toUpperCase()}
 function state(r){return {code:r.code,status:r.status,players:[...r.players.values()].map(p=>({id:p.id,name:p.name,color:p.color,connected:p.connected})),turn:r.turn,started:r.status==='playing'}}
 
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(__dirname));
 app.use('/admin',express.static(path.join(__dirname,'admin')));
 app.get('/admin',(req,res)=>res.sendFile(path.join(__dirname,'admin','index.html')));
 
